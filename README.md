@@ -210,12 +210,24 @@ flowchart TB
 ```bash
 git clone <repo-url>
 cd rick-morty-automation-framework
-mvn clean install -DskipTests
+mvn -s settings.xml clean install -DskipTests
 ```
 
 `-DskipTests` just resolves the dependency tree without actually executing tests — useful on first checkout.
 
-### 4.3 Configuration
+### 4.3 Maven settings (`-s settings.xml`)
+
+The project ships a **project-local `settings.xml`** that pins all dependency lookups to the public **Maven Central** repository (`https://repo1.maven.org/maven2`). Use it via the `-s` flag on every `mvn` invocation:
+
+```bash
+mvn -s settings.xml <goals>
+```
+
+**Why this matters:** if your `~/.m2/settings.xml` contains a `<mirror>` pointing to a corporate / private registry (e.g. GitHub Packages), Maven will route *all* Central traffic through that mirror — and dependency downloads will fail with `401 Unauthorized` if you aren't authenticated to it. The `-s settings.xml` flag tells Maven to use this project's settings instead, bypassing the user-level mirror.
+
+**Skip-the-flag option:** create `.mvn/maven.config` with the line `-s settings.xml` (Maven 3.3.1+). Then plain `mvn …` automatically applies the flag inside this project. Outside the project (or in CI without that file), you'd still pass `-s` explicitly.
+
+### 4.4 Configuration
 
 Per-environment properties live under `src/test/resources/config/`:
 
@@ -229,41 +241,41 @@ Per-environment properties live under `src/test/resources/config/`:
 
 The active env is chosen by `-Denv=<name>` (default: `qa`).
 
-### 4.4 Running tests
+### 4.5 Running tests
 
 ```bash
 # All tests (UI + API)
-mvn clean test
+mvn -s settings.xml clean test
 
 # API only (no browser launched)
-mvn clean test -Dcucumber.filter.tags='@api'
+mvn -s settings.xml clean test -Dcucumber.filter.tags='@api'
 
 # UI smoke only
-mvn clean test -Dcucumber.filter.tags='@ui and @smoke'
+mvn -s settings.xml clean test -Dcucumber.filter.tags='@ui and @smoke'
 
 # Everything except UI (CI without a display)
-mvn clean test -Dcucumber.filter.tags='not @ui'
+mvn -s settings.xml clean test -Dcucumber.filter.tags='not @ui'
 
 # Different env
-mvn clean test -Denv=staging
+mvn -s settings.xml clean test -Denv=staging
 
 # Run a single scenario by name
-mvn clean test -Dcucumber.filter.name='Search characters by name'
+mvn -s settings.xml clean test -Dcucumber.filter.name='Search characters by name'
 ```
 
 > **Note:** `browser` and `headless` are read from the active properties file. To override at the CLI, change those properties in the file (or wire `System.getProperty(...)` into `DriverManager` if you'd like CLI overrides).
 
-### 4.5 Parallelism
+### 4.6 Parallelism
 
 Surefire is pre-configured with overridable knobs in `pom.xml` properties:
 
 ```bash
-mvn test -DforkCount=2 -DthreadCount=4 -DdataProviderThreadCount=4
+mvn -s settings.xml test -DforkCount=2 -DthreadCount=4 -DdataProviderThreadCount=4
 ```
 
 To actually run scenarios in parallel, also flip `@DataProvider(parallel = true)` in `TestRunner.java`.
 
-### 4.6 Generated artifacts
+### 4.7 Generated artifacts
 
 | Artifact | Location | What's in it |
 |---|---|---|
@@ -275,15 +287,15 @@ To actually run scenarios in parallel, also flip `@DataProvider(parallel = true)
 | Application log | `logs/rick_morty_test_run_<timestamp>.log` | Full request/response trail, scenario banners — fresh file per run |
 | Error log | `logs/errors_<timestamp>.log` | ERROR-level only (for monitoring/alerting) — fresh file per run, same `<timestamp>` as the run log |
 
-### 4.7 Console output
+### 4.8 Console output
 
 `mvn` stdout shows Cucumber's pretty-printed step trace plus Log4j2 timestamped lines. Capture for review:
 
 ```bash
-mvn clean test | tee run.log
+mvn -s settings.xml clean test | tee run.log
 ```
 
-### 4.8 Logging
+### 4.9 Logging
 
 The framework writes a **fresh log file per run** (no rolling/overwrite) so that every `mvn` invocation produces a self-contained, archivable log. Two files are created per run, sharing the same `<timestamp>` suffix:
 
