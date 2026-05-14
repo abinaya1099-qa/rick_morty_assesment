@@ -1,0 +1,4 @@
+com/rickandmorty/stepdefinitions/ui/NavigationSteps.class
+com/rickandmorty/stepdefinitions/hooks/Hooks.class
+com/rickandmorty/runners/TestRunner.class
+com/rickandmorty/stepdefinitions/api/CharacterApiSteps.class
