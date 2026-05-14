@@ -1,0 +1,3 @@
+2026-05-15 00:00:32.236 [TestNG-test-UI and API Tests-1] ERROR com.rickandmorty.stepdefinitions.hooks.Hooks - Scenario FAILED: Search characters by name
+2026-05-15 00:00:32.402 [TestNG-test-UI and API Tests-1] ERROR com.rickandmorty.stepdefinitions.hooks.Hooks - Scenario FAILED: Search characters by name
+2026-05-15 00:00:32.403 [TestNG-test-UI and API Tests-1] ERROR com.rickandmorty.utils.testng.RetryAnalyzer - 'runScenario' (scenario: runScenario) failed after 1 retry attempt(s)

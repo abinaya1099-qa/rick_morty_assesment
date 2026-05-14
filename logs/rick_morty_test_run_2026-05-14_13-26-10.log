@@ -1,0 +1,26 @@
+2026-05-14 18:56:13.051 [main] DEBUG com.rickandmorty.utils.testng.AnnotationTransformer - Attached RetryAnalyzer to AbstractTestNGCucumberTests.runScenario
+2026-05-14 18:56:13.265 [TestNG-test-UI and API Tests-1] INFO  com.rickandmorty.stepdefinitions.hooks.Hooks - ===== Starting scenario: Verify About Page contains author information =====
+2026-05-14 18:56:13.267 [TestNG-test-UI and API Tests-1] INFO  com.rickandmorty.utils.config.ConfigReader - Loading configuration from src/test/resources/config/qa.properties
+2026-05-14 18:56:13.267 [TestNG-test-UI and API Tests-1] DEBUG com.rickandmorty.utils.config.ConfigReader - Loaded 5 properties for env 'qa'
+2026-05-14 18:56:13.268 [TestNG-test-UI and API Tests-1] INFO  com.rickandmorty.utils.driver.DriverManager - Initializing WebDriver — browser: chrome, headless: true
+2026-05-14 18:56:13.397 [TestNG-test-UI and API Tests-1] INFO  io.github.bonigarcia.wdm.WebDriverManager - Using chromedriver 148.0.7778.167 (resolved driver for Chrome 148)
+2026-05-14 18:56:13.412 [TestNG-test-UI and API Tests-1] INFO  io.github.bonigarcia.wdm.WebDriverManager - Exporting webdriver.chrome.driver as /Users/abinaya/.cache/selenium/chromedriver/mac-arm64/148.0.7778.167/chromedriver
+2026-05-14 18:56:15.543 [TestNG-test-UI and API Tests-1] INFO  com.rickandmorty.utils.driver.DriverManager - WebDriver initialized for thread TestNG-test-UI and API Tests-1
+2026-05-14 18:56:15.545 [TestNG-test-UI and API Tests-1] INFO  com.rickandmorty.stepdefinitions.ui.NavigationSteps - Navigating to home page: https://rickandmortyapi.com/
+2026-05-14 18:56:17.554 [TestNG-test-UI and API Tests-1] INFO  com.rickandmorty.stepdefinitions.ui.NavigationSteps - Step: clicking 'About' link
+2026-05-14 18:56:17.555 [TestNG-test-UI and API Tests-1] INFO  com.rickandmorty.ui.pages.HomePage - Clicking About link in top navigation
+2026-05-14 18:56:18.261 [TestNG-test-UI and API Tests-1] DEBUG com.rickandmorty.ui.pages.HomePage - About link click dispatched
+2026-05-14 18:56:18.261 [TestNG-test-UI and API Tests-1] INFO  com.rickandmorty.stepdefinitions.ui.NavigationSteps - Step: verifying redirection to About page
+2026-05-14 18:56:18.262 [TestNG-test-UI and API Tests-1] INFO  com.rickandmorty.ui.pages.AboutPage - Waiting for redirection to About page
+2026-05-14 18:56:18.275 [TestNG-test-UI and API Tests-1] INFO  com.rickandmorty.ui.pages.AboutPage - Successfully landed on About page: https://rickandmortyapi.com/about
+2026-05-14 18:56:18.280 [TestNG-test-UI and API Tests-1] DEBUG com.rickandmorty.ui.pages.AboutPage - Current URL: https://rickandmortyapi.com/about
+2026-05-14 18:56:18.282 [TestNG-test-UI and API Tests-1] INFO  com.rickandmorty.stepdefinitions.ui.NavigationSteps - Step: verifying Technical section
+2026-05-14 18:56:18.282 [TestNG-test-UI and API Tests-1] INFO  com.rickandmorty.ui.pages.AboutPage - Verifying 'Technical' section is displayed
+2026-05-14 18:56:18.305 [TestNG-test-UI and API Tests-1] DEBUG com.rickandmorty.ui.pages.AboutPage - Technical section displayed: true
+2026-05-14 18:56:18.339 [TestNG-test-UI and API Tests-1] INFO  com.rickandmorty.utils.data.TestDataReader - Loading UI test data from /Users/abinaya/Documents/Folder-1/Personal/Personal/Von/rick-morty-automation-framework/src/test/resources/testdata/ui-data.json
+2026-05-14 18:56:18.345 [TestNG-test-UI and API Tests-1] INFO  com.rickandmorty.stepdefinitions.ui.NavigationSteps - Step: verifying author from key 'about.authorName' (resolved to 'Axel Fuhrmann') is mentioned
+2026-05-14 18:56:18.345 [TestNG-test-UI and API Tests-1] INFO  com.rickandmorty.ui.pages.AboutPage - Verifying author 'Axel Fuhrmann' is mentioned on the page
+2026-05-14 18:56:18.355 [TestNG-test-UI and API Tests-1] DEBUG com.rickandmorty.ui.pages.AboutPage - Author element present: true
+2026-05-14 18:56:18.356 [TestNG-test-UI and API Tests-1] INFO  com.rickandmorty.stepdefinitions.hooks.Hooks - Scenario PASSED: Verify About Page contains author information
+2026-05-14 18:56:18.356 [TestNG-test-UI and API Tests-1] INFO  com.rickandmorty.utils.driver.DriverManager - Quitting WebDriver for thread TestNG-test-UI and API Tests-1
+2026-05-14 18:56:18.478 [TestNG-test-UI and API Tests-1] INFO  com.rickandmorty.stepdefinitions.hooks.Hooks - ===== Finished scenario: Verify About Page contains author information =====
