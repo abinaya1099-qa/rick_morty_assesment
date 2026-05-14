@@ -230,15 +230,21 @@ mvn -s settings.xml <goals>
 
 ### 4.4 Configuration
 
-Per-environment properties live under `src/test/resources/config/`:
+Per-environment properties live under `src/test/resources/config/` (`qa.properties`, `staging.properties`, `preprod.properties`, `prod.properties`).
 
-| Key | Example | Used by |
-|---|---|---|
-| `browser` | `chrome` / `firefox` | `DriverManager` |
-| `headless` | `true` / `false` | `DriverManager` |
-| `baseUrl` | `https://rickandmortyapi.com/` | `NavigationSteps` (UI home) |
-| `apiBaseUrl` | `https://rickandmortyapi.com/api/` | `CharacterClient` |
-| `timeout` | `10` | reserved for explicit waits |
+| Key | Example | Used by | Notes |
+|---|---|---|---|
+| `browser` | `chrome` / `firefox` | `DriverManager` | Required |
+| `headless` | `true` / `false` | `DriverManager` | Required |
+| `baseUrl` | `https://rickandmortyapi.com/` | `NavigationSteps` (UI home page) | Required |
+
+**API base URL** — `CharacterClient` reads `apiBaseUrl` if present, otherwise falls back to `https://rickandmortyapi.com/api/`. The fallback is hard-coded in `CharacterClient`'s constructor:
+
+```java
+this.apiBaseUrl = ConfigReader.getProperty("apiBaseUrl", "https://rickandmortyapi.com/api/");
+```
+
+If you ever need a different API host per environment (e.g. a sandbox API), add `apiBaseUrl=…` to the relevant `.properties` file — `ConfigReader` and `CharacterClient` already handle it without code changes.
 
 The active env is chosen by `-Denv=<name>` (default: `qa`).
 
@@ -257,8 +263,11 @@ mvn -s settings.xml clean test -Dcucumber.filter.tags='@ui and @smoke'
 # Everything except UI (CI without a display)
 mvn -s settings.xml clean test -Dcucumber.filter.tags='not @ui'
 
-# Different env
+# Different env (qa is the default; staging, preprod, prod are also defined)
+mvn -s settings.xml clean test -Denv=qa
 mvn -s settings.xml clean test -Denv=staging
+mvn -s settings.xml clean test -Denv=preprod
+mvn -s settings.xml clean test -Denv=prod
 
 # Run a single scenario by name
 mvn -s settings.xml clean test -Dcucumber.filter.name='Search characters by name'
