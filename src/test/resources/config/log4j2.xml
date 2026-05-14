@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration status="WARN" monitorInterval="30">
+
+    <Properties>
+        <Property name="LOG_PATTERN">%d{yyyy-MM-dd HH:mm:ss.SSS} [%t] %-5level %logger{36} - %msg%n</Property>
+        <Property name="LOG_DIR">logs</Property>
+        <!-- Use Maven's build timestamp when run via mvn; fall back to a Log4j date lookup otherwise. -->
+        <Property name="RUN_TIMESTAMP">${sys:run.timestamp:-${date:yyyy-MM-dd_HH-mm-ss}}</Property>
+        <Property name="LOG_FILE">${LOG_DIR}/rick_morty_test_run_${RUN_TIMESTAMP}.log</Property>
+        <Property name="ERROR_LOG_FILE">${LOG_DIR}/errors_${RUN_TIMESTAMP}.log</Property>
+    </Properties>
+
+    <Appenders>
+        <Console name="Console" target="SYSTEM_OUT">
+            <PatternLayout pattern="${LOG_PATTERN}"/>
+        </Console>
+
+        <File name="RunFile" fileName="${LOG_FILE}" append="false">
+            <PatternLayout pattern="${LOG_PATTERN}"/>
+        </File>
+
+        <File name="ErrorFile" fileName="${ERROR_LOG_FILE}" append="false">
+            <PatternLayout pattern="${LOG_PATTERN}"/>
+            <ThresholdFilter level="ERROR" onMatch="ACCEPT" onMismatch="DENY"/>
+        </File>
+    </Appenders>
+
+    <Loggers>
+        <Logger name="com.rickandmorty" level="DEBUG" additivity="false">
+            <AppenderRef ref="Console"/>
+            <AppenderRef ref="RunFile"/>
+            <AppenderRef ref="ErrorFile"/>
+        </Logger>
+
+        <Logger name="org.openqa.selenium" level="WARN" additivity="false">
+            <AppenderRef ref="Console"/>
+            <AppenderRef ref="RunFile"/>
+        </Logger>
+
+        <Logger name="io.restassured" level="INFO" additivity="false">
+            <AppenderRef ref="Console"/>
+            <AppenderRef ref="RunFile"/>
+        </Logger>
+
+        <Logger name="org.apache.http" level="WARN" additivity="false">
+            <AppenderRef ref="RunFile"/>
+        </Logger>
+
+        <Logger name="io.cucumber" level="INFO" additivity="false">
+            <AppenderRef ref="Console"/>
+            <AppenderRef ref="RunFile"/>
+        </Logger>
+
+        <Root level="INFO">
+            <AppenderRef ref="Console"/>
+            <AppenderRef ref="RunFile"/>
+            <AppenderRef ref="ErrorFile"/>
+        </Root>
+    </Loggers>
+
+</Configuration>
