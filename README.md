@@ -18,6 +18,7 @@ Hybrid **API + UI** test-automation framework for the [Rick and Morty API](https
 ```
 rick-morty-automation-framework/
 ├── pom.xml                                  # Maven build, deps, surefire config
+├── settings.xml                             # Project-local Maven settings (use via -s settings.xml)
 ├── testng.xml                               # TestNG suite + AnnotationTransformer listener
 ├── README.md
 ├── logs/                                    # Per-run Log4j2 output (one file per mvn invocation)
